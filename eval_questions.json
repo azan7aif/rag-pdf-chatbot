@@ -1,0 +1,13 @@
+[
+  {
+    "question": "What is the definition of normalization in DBMS?",
+    "source": "dbms_notes.pdf",
+    "expected_keyword": "normalization"
+  },
+  {
+    "question": "What are the types of joins in SQL?",
+    "source": "dbms_notes.pdf",
+    "expected_keyword": "inner join",
+    "expected_page": 12
+  }
+]
