@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 *.pdf
 .DS_Store
+!sample_dbms_notes.pdf
