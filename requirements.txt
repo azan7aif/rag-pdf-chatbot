@@ -1,7 +1,9 @@
-pypdf
-chromadb
-sentence-transformers
-streamlit
-anthropic
-google-genai
-python-dotenv
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+sentence-transformers==6.2.0
+chromadb==1.5.9
+streamlit==1.66.1
+pypdf==6.21.4
+python-dotenv==1.2.4
+google-genai==2.34.0
+anthropic==2.4.0

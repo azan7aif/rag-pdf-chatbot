@@ -1,11 +1,28 @@
 """Streamlit UI for the RAG PDF chatbot.  Run:  streamlit run app.py"""
+import os
+
 import streamlit as st
 
-import rag
+# On Streamlit Community Cloud, keys live in "Secrets". Copy them into environment
+# variables so rag.py (which reads os.getenv) works the same locally and online.
+try:
+    for _key, _value in st.secrets.items():
+        if isinstance(_value, str):
+            os.environ.setdefault(_key, _value)
+except Exception:
+    pass  # no secrets file locally: .env is used instead
+
+import rag  # noqa: E402  (must come after the secrets bridge above)
+
+SAMPLE_PDF = "sample_dbms_notes.pdf"
 
 st.set_page_config(page_title="Chat with your PDFs", page_icon="📄")
 st.title("📄 Chat with your PDFs")
 st.caption("Upload PDFs, then ask questions. Answers come only from your documents.")
+
+if os.path.exists(SAMPLE_PDF) and not rag.list_documents():
+    with st.spinner("Loading the sample document (first start only)..."):
+        rag.ingest_pdf(SAMPLE_PDF, SAMPLE_PDF)
 
 
 def show_sources(sources):
@@ -24,6 +41,7 @@ def show_sources(sources):
 # ---------------- Sidebar: document management ----------------
 with st.sidebar:
     st.header("Documents")
+    st.caption("Demo app: please do not upload private or confidential documents.")
     files = st.file_uploader("Upload PDFs", type="pdf", accept_multiple_files=True)
 
     if st.button("Process PDFs", disabled=not files):
